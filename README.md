@@ -26,4 +26,22 @@ Projeto em **JavaScript puro** para praticar manipulação do DOM e consumo de A
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/previsao-do-tempo.git
+   git clone https://github.com/HenriqueMatiola/Previs-o-do-Tempo-API.git
+
+2. Abra o arquivo index.html no navegador.
+
+3. Digite o nome da cidade e clique em buscar.
+
+4. Veja a temperatura, descrição, ícone e mudança de fundo.
+
+---
+
+## 🎯 Objetivo
+
+Praticar:
+
+* Manipulação do DOM com JavaScript;
+
+* Consumo de APIs externas (OpenWeather);
+
+* Atualização dinâmica de elementos e imagens.
