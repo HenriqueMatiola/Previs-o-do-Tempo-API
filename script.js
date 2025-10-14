@@ -36,7 +36,7 @@ function verifyTemp(grau) {
     weather.classList.add("frio");
   } 
   else if (grau <= 22) {
-    document.body.style.backgroundImage = "url('assets/agradavel.jpg')";
+    document.body.style.backgroundImage = "url('assets/ameno.jpg')";
     hora.classList.add("ameno");
     weather.classList.add("ameno");
   }
@@ -54,6 +54,7 @@ function verifyTemp(grau) {
 
 // Quando clicar no botão...
 search.addEventListener("click", () => {
+
   // Remove todas as classes de temperatura
   hora.classList.remove("muitofrio", "frio", "ameno", "calor", "muitocalor");
   weather.classList.remove("muitofrio", "frio", "ameno", "calor", "muitocalor");
@@ -61,22 +62,35 @@ search.addEventListener("click", () => {
   // Pega o valor digitado no input
   const city = document.querySelector("input").value;
 
-  // Chama a função que busca os dados da API
-  getdata(city).then(data => {
+    // 🚨 Verifica se o campo está vazio
+  if (city === "") {
+    alert("Por favor, digite o nome de uma cidade.");
+    return;
+  }
+
+    // Chama a função que busca os dados da API
+    getdata(city).then(data => {
       console.log(data);
 
+      if (data.cod === "404") {
+      cityName.textContent = "Cidade não encontrada ❌";
+      temp.textContent = "";
+      grau.textContent = ""; // opcional, pode ser uma imagem de erro
+      return;
+    }
+      city.value = "";
       // Atualiza o conteúdo dos elementos na página
       cityName.textContent = data.name + " " + data.sys.country;
       temp.innerHTML = `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="icone do clima"> ${data.weather[0].description}`;
       const iconCode = data.weather[0].icon;
       const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-    imgTemp.src = iconUrl;
-    grau.textContent = "Temperatura: " + data.main.temp + "°";
+      imgTemp.src = iconUrl;
+      grau.textContent = "Temperatura: " + data.main.temp + "°";
     
       // Verifica a temperatura e altera o fundo
-    verifyTemp(data.main.temp);
+      verifyTemp(data.main.temp);
 
-  });
+    });
 });
 
 
